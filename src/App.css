@@ -1,3 +1,6 @@
+/* =========================================
+   Main App Layout & Components
+   ========================================= */
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -12,37 +15,6 @@
   text-align: center;
   margin-bottom: 2rem;
   color: var(--text-main);
-}
-
-nav {
-  background-color: var(--card-bg);
-  padding: 1rem 2rem;
-  display: flex;
-  gap: 1.5rem;
-  align-items: center;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  flex-wrap: wrap;
-}
-
-nav a {
-  text-decoration: none;
-  color: var(--text-muted);
-  font-weight: 500;
-  transition: color 0.2s ease;
-}
-
-nav a:hover {
-  color: var(--primary);
-}
-
-nav button {
-  margin-left: auto;
-  background: var(--danger);
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  cursor: pointer;
 }
 
 .product-grid {
@@ -140,43 +112,169 @@ th { background-color: #f1f5f9; font-weight: 600; }
 .send-btn { background: var(--success); }
 
 /* =========================================
-   Responsive Media Queries (Mobile & Tablet)
+   Custom Dark Navbar (Replaces Tailwind)
    ========================================= */
+.navbar {
+  background-color: #1f2937;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+}
 
-@media screen and (max-width: 768px) {
-  .container {
-    padding: 1rem;
-  }
-  nav {
-    flex-direction: column;
-    align-items: stretch;
-    text-align: center;
-    padding: 1rem;
-    gap: 1rem;
-  }
-  nav > div {
-    margin-left: 0 !important;
-    justify-content: center;
-    width: 100%;
-  }
-  nav button {
-    margin-left: 0;
-    width: 100%;
-  }
-  .product-grid {
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 1rem;
-  }
-  .admin-add-form {
-    flex-direction: column;
-  }
-  .admin-add-form input, 
-  .admin-add-form button {
-    width: 100%;
-    flex: 1 1 100% !important;
-  }
-  th, td {
-    padding: 0.75rem 0.5rem;
-    font-size: 0.9rem;
-  }
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 64px;
+}
+
+.nav-brand {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+/* Desktop Links */
+.nav-desktop {
+  display: none;
+  align-items: center;
+  flex: 1;
+  justify-content: space-between;
+  margin-left: 1.5rem;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-link {
+  color: #d1d5db;
+  text-decoration: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: white;
+}
+
+.nav-link.highlight { color: #818cf8; }
+.nav-link.highlight:hover { color: #a5b4fc; }
+
+/* Profile & Dropdown */
+.nav-profile {
+  position: relative;
+  margin-left: 1rem;
+}
+
+.profile-btn {
+  background-color: #6366f1;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0;
+}
+.profile-btn.admin { background-color: #dc2626; }
+
+.dropdown-menu {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  margin-top: 0.5rem;
+  width: 12rem;
+  background-color: #1f2937;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.375rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  z-index: 50;
+  padding: 0.25rem 0;
+}
+
+.dropdown-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 0.5rem 1rem;
+  color: #d1d5db;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: white;
+}
+
+/* Mobile Menu */
+.mobile-menu-btn {
+  display: flex;
+  background: none;
+  border: none;
+  color: #9ca3af;
+  padding: 0.5rem;
+  cursor: pointer;
+  border-radius: 0.375rem;
+}
+.mobile-menu-btn:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: white;
+}
+.mobile-menu-btn svg { width: 24px; height: 24px; }
+
+.mobile-menu {
+  background-color: #1f2937;
+  padding: 0.5rem 1rem 1rem 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobile-link {
+  display: block;
+  color: #d1d5db;
+  text-decoration: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.375rem;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+.mobile-link:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: white;
+}
+.mobile-link.highlight { color: #818cf8; }
+
+/* =========================================
+   Responsive Media Queries
+   ========================================= */
+@media screen and (min-width: 768px) {
+  .nav-desktop { display: flex; }
+  .mobile-menu-btn { display: none; }
+  .mobile-menu { display: none !important; }
+}
+
+@media screen and (max-width: 767px) {
+  .container { padding: 1rem; }
+  .product-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; }
+  .admin-add-form { flex-direction: column; }
+  .admin-add-form input, .admin-add-form button { width: 100%; flex: 1 1 100% !important; }
+  th, td { padding: 0.75rem 0.5rem; font-size: 0.9rem; }
 }

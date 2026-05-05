@@ -1,10 +1,8 @@
 export default function Home() {
   const products = JSON.parse(localStorage.getItem("Products")) || [];
-
   return (
     <div className="container">
       <h1 className="page-title">Welcome to Our Store</h1>
-      
       {products.length > 0 ? (
         <div className="product-grid">
           {products.map((p, i) => (
@@ -15,9 +13,7 @@ export default function Home() {
             </div>
           ))}
         </div>
-      ) : (
-        <p style={{ textAlign: "center" }}>No products available yet. Check back later!</p>
-      )}
+      ) : <p style={{ textAlign: "center" }}>No products available yet. Check back later!</p>}
     </div>
   );
 }
