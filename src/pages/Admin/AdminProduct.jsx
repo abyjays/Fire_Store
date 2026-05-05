@@ -35,37 +35,9 @@ export default function AdminProduct() {
     localStorage.setItem("Products", JSON.stringify(updated));
   };
 
-  // Manual API Fetch Function
-  const fetchApiProducts = async () => {
-    try {
-      const response = await fetch('https://fakestoreapi.com/products?limit=8');
-      const data = await response.json();
-      const apiProducts = data.map(item => ({
-        productname: item.title,
-        productprice: Math.round(item.price * 80),
-        quantity: 15,
-        image: item.image
-      }));
-      
-      const updated = [...products, ...apiProducts];
-      setProducts(updated);
-      localStorage.setItem("Products", JSON.stringify(updated));
-      alert("Sample products imported successfully!");
-    } catch (error) {
-      alert("Failed to connect to the FakeStore API.");
-      console.error(error);
-    }
-  };
-
   return (
     <div className="container">
       <h1 className="page-title">Manage Products</h1>
-      
-      <div style={{ textAlign: "right", marginBottom: "1rem" }}>
-        <button className="btn btn-success" style={{ width: "auto" }} onClick={fetchApiProducts}>
-          ⬇️ Import Sample Products from API
-        </button>
-      </div>
       
       <div className="form-card" style={{ maxWidth: "800px", margin: "0 auto 2rem" }}>
         <h3>Add Custom Product</h3>
