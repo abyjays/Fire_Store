@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import './App.css'; 
 
@@ -21,6 +22,35 @@ import AdminOrders from "./pages/Admin/AdminOrders";
 function AppContent() {
   useLocation(); 
   const role = localStorage.getItem("Role");
+  const [isInitializing, setIsInitializing] = useState(true);
+
+  // API INTEGRATION: Fetch sample products if local storage is empty
+  useEffect(() => {
+    const initializeStore = async () => {
+      const storedProducts = JSON.parse(localStorage.getItem("Products")) || [];
+      if (storedProducts.length === 0) {
+        try {
+          const response = await fetch('https://fakestoreapi.com/products?limit=8');
+          const data = await response.json();
+          const apiProducts = data.map(item => ({
+            productname: item.title,
+            productprice: Math.round(item.price * 80), 
+            quantity: 15, 
+            image: item.image
+          }));
+          localStorage.setItem("Products", JSON.stringify(apiProducts));
+        } catch (error) {
+          console.error("Failed to load mock API products", error);
+        }
+      }
+      setIsInitializing(false);
+    };
+    initializeStore();
+  }, []);
+
+  if (isInitializing) {
+    return <div style={{textAlign: "center", marginTop: "20vh", fontSize: "1.5rem", color: "var(--primary)"}}>Initializing Store...</div>;
+  }
 
   return (
     <>

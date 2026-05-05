@@ -9,17 +9,20 @@ export default function Cart() {
   const handleDelete = (index) => {
     const updated = cart.filter((_, i) => i !== index); setCart(updated); localStorage.setItem(userKey, JSON.stringify(updated));
   };
+  
   const handleBuySingle = (item, index) => {
     const orders = JSON.parse(localStorage.getItem("Orders") || "[]");
     orders.push({ id: generateId(), userEmail: user.email, items: [item], status: "Pending" });
     localStorage.setItem("Orders", JSON.stringify(orders)); handleDelete(index); alert("Order placed successfully!");
   };
+  
   const handleBuyAll = () => {
     if (cart.length === 0) return;
     const orders = JSON.parse(localStorage.getItem("Orders") || "[]");
     orders.push({ id: generateId(), userEmail: user.email, items: cart, status: "Pending" });
     localStorage.setItem("Orders", JSON.stringify(orders)); localStorage.removeItem(userKey); setCart([]); alert("All items ordered successfully!");
   };
+  
   const cartTotal = cart.reduce((total, item) => total + (Number(item.productprice) * Number(item.cartQuantity || 1)), 0);
 
   return (
@@ -29,7 +32,13 @@ export default function Cart() {
         <><div className="product-grid">
             {cart.map((item, i) => (
               <div key={i} className="product-card">
-                <div><h3>{item.productname}</h3><p className="price">₹{item.productprice}</p><p className="stock">Qty: {item.cartQuantity}</p><p style={{ fontWeight: "bold", marginBottom: "10px" }}>Subtotal: ₹{item.productprice * item.cartQuantity}</p></div>
+                <div>
+                  {item.image && <img src={item.image} alt={item.productname} className="product-image" style={{height: "100px"}} />}
+                  <h3 title={item.productname}>{item.productname}</h3>
+                  <p className="price">₹{item.productprice}</p>
+                  <p className="stock">Qty: {item.cartQuantity}</p>
+                  <p style={{ fontWeight: "bold", marginBottom: "10px" }}>Subtotal: ₹{item.productprice * item.cartQuantity}</p>
+                </div>
                 <div style={{ display: 'flex', gap: '10px' }}>
                   <button className="btn btn-danger" onClick={() => handleDelete(i)}>Remove</button>
                   <button className="btn btn-primary" onClick={() => handleBuySingle(item, i)}>Buy</button>

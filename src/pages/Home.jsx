@@ -7,9 +7,12 @@ export default function Home() {
         <div className="product-grid">
           {products.map((p, i) => (
             <div key={i} className="product-card">
-              <h3>{p.productname}</h3>
-              <p className="price">₹{p.productprice}</p>
-              <p className="stock">Available: {p.quantity}</p>
+              <div>
+                {p.image && <img src={p.image} alt={p.productname} className="product-image" />}
+                <h3 title={p.productname}>{p.productname}</h3>
+                <p className="price">₹{p.productprice}</p>
+                <p className="stock">Available: {p.quantity}</p>
+              </div>
             </div>
           ))}
         </div>
