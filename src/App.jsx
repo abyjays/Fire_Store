@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/react"; 
 import './App.css'; 
 
 import Home from "./pages/Home";
@@ -24,7 +25,7 @@ function AppContent() {
   const role = localStorage.getItem("Role");
   const [isInitializing, setIsInitializing] = useState(true);
 
-  // API INTEGRATION: Fetch sample products if local storage is empty
+  
   useEffect(() => {
     const initializeStore = async () => {
       const storedProducts = JSON.parse(localStorage.getItem("Products")) || [];
@@ -80,6 +81,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <AppContent />
+      <Analytics /> 
     </BrowserRouter>
   );
 }

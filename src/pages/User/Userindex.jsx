@@ -6,11 +6,13 @@ export default function Userindex() {
     const userKey = `Cart_${user.email}`;
     let cart = JSON.parse(localStorage.getItem(userKey)) || [];
     const existingIndex = cart.findIndex((item) => item.productname === product.productname);
+    
     if (existingIndex >= 0) {
       cart[existingIndex].cartQuantity = (cart[existingIndex].cartQuantity || 1) + 1;
     } else {
       cart.push({ ...product, cartQuantity: 1, userEmail: user.email });
     }
+    
     localStorage.setItem(userKey, JSON.stringify(cart));
     alert(`${product.productname} added to cart!`);
   };
